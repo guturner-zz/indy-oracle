@@ -3,6 +3,12 @@ package org.indyoracle.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Custom form validation for Phone Number fields.
+ * 
+ * @author Guy
+ *
+ */
 public class PhoneValidator implements ConstraintValidator<Phone, String> {
 
 	@Override

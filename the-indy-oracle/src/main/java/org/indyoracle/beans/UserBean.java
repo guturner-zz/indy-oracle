@@ -3,6 +3,13 @@ package org.indyoracle.beans;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.indyoracle.validators.Phone;
 
+/**
+ * This bean is meant to hold User data from Stormpath.
+ * Contains validation for forms.
+ * 
+ * @author Guy
+ *
+ */
 public class UserBean {
 	private String firstName;
 	private String lastName;

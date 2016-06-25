@@ -9,6 +9,13 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+/**
+ * Custom form validation for Phone Number fields.
+ * 
+ * @author Guy
+ *
+ */
+
 @Documented
 @Constraint(validatedBy = PhoneValidator.class)
 @Target(ElementType.FIELD)
