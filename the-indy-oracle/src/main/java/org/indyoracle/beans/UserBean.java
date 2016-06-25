@@ -19,6 +19,8 @@ public class UserBean {
 	
 	@NotEmpty(message = "Enter a phone carrier.")
 	private String phoneCarrier;
+	
+	private String uniqueId;
 
 	public String getPhoneCarrier() {
 		return phoneCarrier;
@@ -50,5 +52,13 @@ public class UserBean {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getUniqueId() {
+		return uniqueId;
+	}
+
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
 	}
 }

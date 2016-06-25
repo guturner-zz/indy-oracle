@@ -22,6 +22,11 @@
 			</div>
 		</div>
 	
+		<div class="alert alert-dismissable alert-success"
+			th:if="${newUser == true}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<p><strong>Success!</strong> You're now registered. Please log in.</p>
+		</div>
 
 		<div class="row" th:if="${user != null}">
 			<div class="col-md-6">

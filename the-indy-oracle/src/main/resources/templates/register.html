@@ -32,24 +32,35 @@
 				<!--/*/ </th-block> /*/-->
 			</div>
 
-			<form method="post" th:action="@{${form.action}}" role="form"
+			<form method="post" th:action="@{/register}" th:object="${stormpathRegisterBean}" role="form"
 				class="registration-form form-horizontal sp-form">
 
-				<input th:each="field : ${form.hiddenFields}"
-					th:name="${field.name}" th:type="${field.type}"
-					th:value="${field.value}" />
-
-				<div th:each="field : ${form.visibleFields}" form-group="true"
+				<div th:each="field : ${visibleFields}" form-group="true"
 					th:class="'form-group group-' + ${field.name}">
-					<label class="col-md-12" th:text="#{${field.label}}">|Field
+					<label class="col-md-12" th:text="${field.label}">|Field
 						label|</label>
 
 					<div class="col-md-6">
-						<input th:name="${field.name}" th:value="${field.value}"
-							th:type="${field.type}" th:placeholder="#{${field.placeholder}}"
-							th:autofocus="${field.autofocus}" th:required="${field.required}"
+						<input th:name="${field.name}" th:attr="field = ${field.name}"
+							th:type="${field.type}" th:placeholder="${field.placeholder}"
+							th:required="${field.required}"
 							class="form-control" />
 						<span th:if="${field.name == 'password'}" class="help-block">* Minimum of 8 characters, at least one upper and at least one number.</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-12">Approver's Email</label>
+					<div class="col-md-6">
+						<input th:field="*{approverEmail}" placeholder="Approver Email" required="true" class="form-control" />
+					</div>
+					
+					<div class="top-buffer"></div>
+					
+					<label class="col-md-12">Approver's Unique ID</label>
+					<div class="col-md-6">
+						<input th:field="*{approverId}" placeholder="Approver ID" required="true" class="form-control" />
+						<span class="help-block">* Your approver can find this on their profile.</span>
 					</div>
 				</div>
 

@@ -63,6 +63,11 @@ public class UserInfoController {
     		phoneCarrier = account.getCustomData().get("phoneCarrier").toString();
     	}
     	userBean.setPhoneCarrier(phoneCarrier);
+    	String uniqueId = "";
+    	if (account.getCustomData().get("uniqueId") != null) {
+    		uniqueId = account.getCustomData().get("uniqueId").toString();
+    	}
+    	userBean.setUniqueId(uniqueId);
     	
     	return userBean;
 	}
@@ -71,6 +76,13 @@ public class UserInfoController {
 		UserBean bean = buildUserBean(request);
 		model.addAttribute("userBean", bean);
 		model.addAttribute("options", options);
+		
+		Account account = UserManager.getCurrentUser(request);
+		boolean isAdmin = false;
+		if (account.getCustomData().get("role").equals("ADMIN")) {
+			isAdmin = true;
+		}
+		model.addAttribute("isAdmin", isAdmin);
 	}
 	
     @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
@@ -89,15 +101,8 @@ public class UserInfoController {
     	}
     	
     	Account account = UserManager.getCurrentUser(request);
+    	UserManager.updateUser(account, userBean.getFirstName(), userBean.getLastName(), userBean.getPhoneNumber(), userBean.getPhoneCarrier());
     	
-    	account.setGivenName(userBean.getFirstName());
-    	account.setSurname(userBean.getLastName());
-    	
-    	CustomData customData = account.getCustomData();
-    	customData.put("phoneNumber", userBean.getPhoneNumber());
-    	customData.put("phoneCarrier", userBean.getPhoneCarrier());
-    	
-    	account.save();
     	
     	setModelAttributes(request, model);
     	return "user_profile";

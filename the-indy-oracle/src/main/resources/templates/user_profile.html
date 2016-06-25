@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-12">
+			<div th:class="${isAdmin} ? col-lg-8 : col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">Info</div>
 					<form th:action="@{/user/profile}" th:object="${userBean}"
@@ -89,6 +89,23 @@
 							<button type="submit" class="btn btn-primary">Update</button>
 						</div>
 					</form>
+				</div>
+			</div>
+			
+			<div th:if="${isAdmin == true}" class="col-lg-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">Admin Data</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12">
+								<label for="inputUniqueId" class="control-label">Approval ID</label> 
+								<input type="text" disabled="disabled"
+									class="form-control" id="inputUniqueId"
+									th:value="${userBean.uniqueId}" />
+								<span class="help-block">* Give to new users so they can register.</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
