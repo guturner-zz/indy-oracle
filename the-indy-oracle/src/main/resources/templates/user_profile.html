@@ -21,6 +21,15 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="alert alert-dismissable alert-danger"
+			th:if="${errors != null and not #lists.isEmpty(errors)}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<!--/*/ <th-block data-th-each="error : ${errors}"> /*/-->
+			<p th:text="${error.defaultMessage}">|Error message here.|</p>
+			<!--/*/ </th-block> /*/-->
+		</div>
+		
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
@@ -54,6 +63,20 @@
 										class="form-control" id="inputPhoneNumber"
 										placeholder="3171234567" th:value="${userBean.phoneNumber}" /> 
 									<span class="help-block">* Do not include hyphens.</span>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-4">
+									<label for="inputPhoneCarrier" class="control-label">Phone Carrier</label>								
+									<select type="text" th:field="*{phoneCarrier}"
+										class="form-control" id="inputPhoneCarrier"
+										placeholder="3171234567" th:selected="${userBean.phoneCarrier}">
+										<!-- Null Value -->
+										<option value=""/>
+										<option th:each="opt : ${options}" th:value="${opt}" th:text="${opt}">opt</option>
+									</select>
 								</div>
 							</div>
 						</div>
