@@ -13,7 +13,8 @@
 	<!-- Fragment #2: CSS / JS -->
 	<section th:fragment="cssAndJS">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
-		<link rel="stylesheet" href="css/superhero.css"></link>
+		<link rel="stylesheet" th:href="@{/css/superhero.css}"></link>
+		<link rel="stylesheet" th:href="@{/css/additional.css}"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	</section>
@@ -31,16 +32,27 @@
 	    </div>
 	    <div class="navbar-collapse collapse" id="navbar-main">
 	      <ul class="nav navbar-nav">
-	        <li>
+	        <li th:if="${user == null}">
 	          <a href="/register">Register</a>
-	        </li>
-	        <li>
-	          <a href="/users">Users</a>
 	        </li>
 	      </ul>
 	
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="/login">Login</a></li>
+	      	<!-- If NOT Logged In -->
+	        <li th:if="${user == null}">
+	        	<a href="/login">Login</a>
+	        </li>
+	        
+	        <!-- If Logged In -->
+	        <li th:if="${user != null}">
+	        	<a th:text="${user.fullName}" href="/user/profile" />
+	        </li>
+	        <li th:if="${user != null}">
+	        	<p class="navbar-text">|</p> 
+	        </li>
+	        <li th:if="${user != null}">
+	        	<a href="/logout">Logout</a>
+	        </li>
 	      </ul>
 	
 	    </div>

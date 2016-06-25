@@ -2,11 +2,12 @@ package org.indyoracle.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
-@ComponentScan(basePackages = {"org.indyoracle.controllers"})
+@SpringBootApplication
+@ComponentScan(basePackages = {"org.indyoracle.controllers", 
+                               "org.indyoracle.interceptors.config",
+                               "org.indyoracle.security.config"})
 public class Application {
 	
     public static void main(String[] args) {

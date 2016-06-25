@@ -49,6 +49,7 @@
 							th:type="${field.type}" th:placeholder="#{${field.placeholder}}"
 							th:autofocus="${field.autofocus}" th:required="${field.required}"
 							class="form-control" />
+						<span th:if="${field.name == 'password'}" class="help-block">* Minimum of 8 characters, at least one upper and at least one number.</span>
 					</div>
 				</div>
 
