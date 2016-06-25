@@ -69,7 +69,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-4">
-									<label for="inputPhoneCarrier" class="control-label">Phone Carrier</label>								
+									<label for="inputPhoneCarrier" class="control-label help-text" data-toggle="tooltip" title="Why do we need this? Indy Oracle uses 'Email -> SMS' to text you, this varies depending on carrier.">Phone Carrier</label>								
 									<select type="text" th:field="*{phoneCarrier}"
 										class="form-control" id="inputPhoneCarrier"
 										placeholder="3171234567" th:selected="${userBean.phoneCarrier}">
@@ -90,5 +90,12 @@
 	</div>
 
 </body>
+
+<script>
+// Enable tooltips:
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
 
 </html>
