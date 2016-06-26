@@ -28,7 +28,7 @@ public class MainController {
 	 */
 	private void initProgressBar(HttpServletRequest request, Model model) {
 		Account account = UserManager.getCurrentUser(request);
-    	
+		
 		// Only add a progress bar if logged in:
     	if (account != null) {
 	    	String percentage = "66";

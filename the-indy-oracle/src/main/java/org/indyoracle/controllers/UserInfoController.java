@@ -108,6 +108,18 @@ public class UserInfoController {
     	return "user_profile";
     }
     
+    @RequestMapping(value = "/user/optout", method = RequestMethod.POST)
+    public String optOut(HttpServletRequest request, Model model) {
+    	Account account = UserManager.getCurrentUser(request);
+    	
+    	CustomData customData = account.getCustomData();
+    	customData.remove("phoneNumber");
+    	customData.remove("phoneCarrier");
+    	customData.save();
+    	
+    	return "redirect:/";
+    }
+    
     /**
      * AJAX service call for validating 'Phone Number' field on 'User Profile' screen.
      * 

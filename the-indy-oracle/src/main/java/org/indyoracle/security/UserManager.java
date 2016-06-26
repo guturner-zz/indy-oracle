@@ -1,5 +1,6 @@
 package org.indyoracle.security;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -106,6 +107,20 @@ public class UserManager {
 		}
 		
 		return account;
+	}
+	
+	public static ArrayList<Account> getAllOptedInUsers() {
+		ArrayList<Account> accounts = new ArrayList<Account>();
+		
+		Application app = AccountManager.getApplication();
+		for (Account a : app.getAccounts()) {
+			CustomData data = a.getCustomData();
+			if (data.get("phoneNumber") != null) {
+				accounts.add(a);
+			}
+		}
+		
+		return accounts;
 	}
 	
 	public static String generateUUID() {

@@ -121,7 +121,7 @@
 
 	// Phone Number validation check:
 	$(document).ready(function() {
-		$('#inputPhoneNumber').on('keyup', function(e) {
+		$('#inputPhoneNumber').on('focusout', function(e) {
 			$.ajax({
 				url : '/user/validate',
 				data : ({

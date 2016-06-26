@@ -27,6 +27,19 @@
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<p><strong>Success!</strong> You're now registered. Please log in.</p>
 		</div>
+		
+		<div th:if="${user == null}" class="col-lg-12">
+			<h2>317-584-ORCL (6725)</h2>
+			<p>
+				Indy Oracle is a hub for cosplayers to register as volunteers on an escort team. If guests at a convention feel unsafe for any reason, they are encouraged to text the number above and an escort will get back to them ASAP.
+			</p>
+			
+			<h2>How Does Indy Oracle Work?</h2>
+			<p>
+				Admins can invite users to join the website. If they're available to serve as an escort at a convention, users can opt into the program by providing their phone number. When guests text the number above, a copy of that text is sent to a secure inbox that is constantly being monitored by the Indy Oracle script. When Indy Oracle discovers an e-mail, it will text the details to those users that have opted in.
+			</p>
+		</div>
+		
 
 		<div class="row" th:if="${user != null}">
 			<div class="col-md-6">
@@ -43,6 +56,18 @@
 						<span th:text="${percentage}"/>
 					</div>
 				</div>
+			</div>
+		</div>
+		
+		<div class="row" th:if="${profileDone == true}">
+			<div class="col-md-4">
+				You are registered to receive text notifications.
+			</div>
+			
+			<div class="col-md-1">
+				<form th:action="@{/user/optout}" method="post">
+					<button type="submit" class="btn btn-primary">Opt Out?</button>
+				</form>
 			</div>
 		</div>
 		

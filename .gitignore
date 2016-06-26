@@ -20,3 +20,5 @@ the-indy-oracle/.settings/
 the-indy-oracle/target/
 the-indy-oracle/.classpath
 the-indy-oracle/.project
+
+*credentials.properties
