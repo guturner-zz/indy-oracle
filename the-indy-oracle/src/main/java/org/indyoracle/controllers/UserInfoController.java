@@ -76,13 +76,6 @@ public class UserInfoController {
 		UserBean bean = buildUserBean(request);
 		model.addAttribute("userBean", bean);
 		model.addAttribute("options", options);
-		
-		Account account = UserManager.getCurrentUser(request);
-		boolean isAdmin = false;
-		if (account.getCustomData().get("role").equals("ADMIN")) {
-			isAdmin = true;
-		}
-		model.addAttribute("isAdmin", isAdmin);
 	}
 	
     @RequestMapping(value = "/user/profile", method = RequestMethod.GET)

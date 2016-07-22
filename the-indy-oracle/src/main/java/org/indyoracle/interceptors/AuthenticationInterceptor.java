@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.indyoracle.security.UserManager;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.stormpath.sdk.account.Account;
+
 /**
  * This interceptor adds additional protection against unauthorized access.
  * Stormpath should be sufficient, but this is an extra caution.
@@ -30,6 +32,14 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
 
+		// Prevent splash screen if user logged in:
+		Account account = UserManager.getCurrentUser(request);
+		if ( request.getRequestURI().equals("/") && 
+		     account != null && 
+		     request.getParameter("skip") == null ) {
+			response.sendRedirect("/?skip=y");
+		}
+		
 		// Avoid a redirect loop on unsecured pages:
 		if (!UNSECURED_PAGES.contains(request.getRequestURI())) {
 			

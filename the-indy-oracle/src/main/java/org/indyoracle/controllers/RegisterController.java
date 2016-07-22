@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.indyoracle.annotations.Service;
 import org.indyoracle.beans.Field;
 import org.indyoracle.beans.StormpathRegisterBean;
-import org.indyoracle.security.AccountManager;
 import org.indyoracle.security.UserManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.directory.CustomData;
@@ -39,6 +41,8 @@ public class RegisterController {
     		add(new Field("Email", "email", "text", "Email", "true"));
     		add(new Field("Password", "password", "password", "Password", "true"));
     		add(new Field("Confirm Password", "confirmPassword", "password", "Confirm Password", "true"));
+    		add(new Field("Approver's Email", "approverEmail", "text", "Approver Email", "true"));
+    		add(new Field("Approver's Unique ID", "approverId", "text", "Approver ID", "true"));
     	}};
     	
     	model.addAttribute("visibleFields", visibleFields);
@@ -52,7 +56,7 @@ public class RegisterController {
     }
     
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String setRegister(@Valid @ModelAttribute StormpathRegisterBean stormpathRegisterBean, BindingResult result, HttpServletRequest request, Model model) {
+    public String setRegister(@Valid @ModelAttribute StormpathRegisterBean stormpathRegisterBean, BindingResult result, HttpServletRequest request, RedirectAttributes redirectAttr, Model model) {
     	// Form had validation errors:
     	if (result.hasErrors()) {
     		ArrayList<String> errors = new ArrayList<String>();
@@ -113,12 +117,11 @@ public class RegisterController {
     			                     stormpathRegisterBean.getApproverId());
     	
     	if (a != null) {
-    		model.addAttribute("newUser", true);
+    		redirectAttr.addFlashAttribute("newUser", true);
     	} else {
-    		model.addAttribute("errors", new ArrayList<String>() {{ add("User creation failed, please try again."); }});
+    		redirectAttr.addFlashAttribute("newUserFailed", true);
     	}
     	
-    	return "home";
+    	return "redirect:/?skip=y";
     }
-    
 }

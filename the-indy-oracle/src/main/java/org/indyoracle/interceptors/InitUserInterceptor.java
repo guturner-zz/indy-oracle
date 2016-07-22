@@ -29,8 +29,16 @@ public class InitUserInterceptor extends HandlerInterceptorAdapter {
 			                  final Object handler, ModelAndView modelAndView) throws Exception {
 		
 		if (!SERVICES.contains(request.getRequestURI())) {
+			// Add user object:
 			Account account = UserManager.getCurrentUser(request);
 			modelAndView.addObject("user", account);
+			
+			// Add Admin flag:
+			boolean isAdmin = false;
+			if (account != null && account.getCustomData().get("role").equals("ADMIN")) {
+				isAdmin = true;
+			}
+			modelAndView.addObject("isAdmin", isAdmin);
 		}
 	}
 	

@@ -6,6 +6,7 @@ import org.indyoracle.security.UserManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.directory.CustomData;
@@ -51,8 +52,14 @@ public class MainController {
 	}
 	
     @RequestMapping("/")
-    public String index(HttpServletRequest request, Model model) {
+    public String index(@RequestParam(value = "skip", required = false) final String skip, HttpServletRequest request, Model model) {
     	initProgressBar(request, model);
+    	
+    	if (skip != null && skip.equals("y")) {
+    		model.addAttribute("skip", true);
+    	} else {
+    		model.addAttribute("skip", false);
+    	}
     	
     	return "home";
     }
