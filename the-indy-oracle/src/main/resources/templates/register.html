@@ -65,22 +65,6 @@
 		</div>
 
 	</div>
-
-	<script th:inline="javascript">
-	  var model=[];
-	  model.currStepNo = [[${currStepNo}]];
-	</script>
-	<script type="text/javascript">
-		$('#nextBtn').on('click', function(e) {
-			$.ajax({
-				url: "/register/increment",
-				data: ({stepNo: model.currStepNo}),
-				error: function(e) {
-					console.log("ERROR: ", e);
-				}
-			})
-		});
-	</script>
 </body>
 
 </html>

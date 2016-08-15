@@ -48,7 +48,7 @@ public class UserInfoController {
 	 * @return the populated UserBean object.
 	 */
 	private UserBean buildUserBean(HttpServletRequest request) {
-		Account account = UserManager.getCurrentUser(request);
+		Account account = UserManager.getCurrentUser(request.getSession());
     	
     	UserBean userBean = new UserBean();
     	userBean.setFirstName(account.getGivenName());
@@ -93,7 +93,7 @@ public class UserInfoController {
     		return "user_profile";
     	}
     	
-    	Account account = UserManager.getCurrentUser(request);
+    	Account account = UserManager.getCurrentUser(request.getSession());
     	UserManager.updateUser(account, userBean.getFirstName(), userBean.getLastName(), userBean.getPhoneNumber(), userBean.getPhoneCarrier());
     	
     	
@@ -103,7 +103,7 @@ public class UserInfoController {
     
     @RequestMapping(value = "/user/optout", method = RequestMethod.POST)
     public String optOut(HttpServletRequest request, Model model) {
-    	Account account = UserManager.getCurrentUser(request);
+    	Account account = UserManager.getCurrentUser(request.getSession());
     	
     	CustomData customData = account.getCustomData();
     	customData.remove("phoneNumber");

@@ -22,8 +22,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	// Collection of pages that should not require authentication:
 	private final ArrayList<String> UNSECURED_PAGES = new ArrayList<String>() {{
 		add("/");
+		add("/auth");
 		add("/error");
-		add("/login");
 		add("/logout");
 		add("/register");
 		add("/user/validate");
@@ -33,7 +33,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws Exception {
 
 		// Prevent splash screen if user logged in:
-		Account account = UserManager.getCurrentUser(request);
+		Account account = UserManager.getCurrentUser(request.getSession());
 		if ( request.getRequestURI().equals("/") && 
 		     account != null && 
 		     request.getParameter("skip") == null ) {
@@ -44,8 +44,13 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 		if (!UNSECURED_PAGES.contains(request.getRequestURI())) {
 			
 			// Only redirect if not logged in:
-			if (UserManager.getCurrentUser(request) == null) {
-				response.sendRedirect("/login");
+			if (UserManager.getCurrentUser(request.getSession()) == null) {
+				response.sendRedirect("/auth");
+				return false;
+			}
+			
+			if (request.getRequestURI().equals("/login")) {
+				response.sendRedirect("/auth");
 				return false;
 			}
 		}

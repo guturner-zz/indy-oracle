@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.application.Application;
@@ -11,7 +12,6 @@ import com.stormpath.sdk.client.Client;
 import com.stormpath.sdk.client.ClientBuilder;
 import com.stormpath.sdk.client.Clients;
 import com.stormpath.sdk.directory.CustomData;
-import com.stormpath.sdk.servlet.account.AccountResolver;
 
 /**
  * Helper class for accessing Stormpath account properties.
@@ -24,16 +24,20 @@ public class UserManager {
 	/**
 	 * Retrieves the currently authenticated user from Stormpath.
 	 * 
-	 * @param request
+	 * @param session
 	 * @return the currently authenticated Stormpath account OR null if no user is logged in.
 	 */
-	public static Account getCurrentUser(HttpServletRequest request) {
-		if (AccountResolver.INSTANCE.hasAccount(request)) {
-    		Account account = AccountResolver.INSTANCE.getRequiredAccount(request);
-	    	if (account != null) {
-	    		return account;
-	    	}
-    	}
+	public static Account getCurrentUser(HttpSession session) {
+//		if (AccountResolver.INSTANCE.hasAccount(request)) {
+//    		Account account = AccountResolver.INSTANCE.getRequiredAccount(request);
+//	    	if (account != null) {
+//	    		return account;
+//	    	}
+//    	}
+		
+		if (session.getAttribute("account") != null) {
+			return (Account) session.getAttribute("account");
+		}
 		
 		return null;
 	}

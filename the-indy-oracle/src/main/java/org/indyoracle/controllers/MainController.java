@@ -28,7 +28,7 @@ public class MainController {
 	 * @param model
 	 */
 	private void initProgressBar(HttpServletRequest request, Model model) {
-		Account account = UserManager.getCurrentUser(request);
+		Account account = UserManager.getCurrentUser(request.getSession());
 		
 		// Only add a progress bar if logged in:
     	if (account != null) {

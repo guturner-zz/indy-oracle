@@ -30,7 +30,7 @@ public class InitUserInterceptor extends HandlerInterceptorAdapter {
 		
 		if (!SERVICES.contains(request.getRequestURI())) {
 			// Add user object:
-			Account account = UserManager.getCurrentUser(request);
+			Account account = UserManager.getCurrentUser(request.getSession());
 			modelAndView.addObject("user", account);
 			
 			// Add Admin flag:
