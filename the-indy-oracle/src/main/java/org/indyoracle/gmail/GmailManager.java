@@ -18,6 +18,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.indyoracle.beans.Mail;
+import org.indyoracle.data.DataManager;
 
 public class GmailManager {
 
@@ -126,6 +127,8 @@ public class GmailManager {
 	public static boolean sendHelpRequestEmail(String to, String toCarrier, String numberWhoNeedsHelp, String msg) {
 		Map<String, String> creds = getCredentials();
 		
+		DataManager dataManager = DataManager.getInstance();
+		
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -166,7 +169,9 @@ public class GmailManager {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(to + "@" + carrierDomain));
 			message.setSubject("Someone Needs Help");
-			message.setText("Hero, we've received an SOS from " + numberWhoNeedsHelp + ". Here is their full message: " + msg + ". Please coordinate an escort.");
+			String msgBody = "Hero, we've received an SOS from " + numberWhoNeedsHelp + ". Here is their full message: " + msg + ". Please coordinate an escort.";
+			message.setText(msgBody);
+			dataManager.addMessage(msgBody);
 
 			Transport.send(message);
 

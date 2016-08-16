@@ -3,6 +3,7 @@ package org.indyoracle.cron;
 import java.util.ArrayList;
 
 import org.indyoracle.beans.Mail;
+import org.indyoracle.data.DataManager;
 import org.indyoracle.gmail.GmailManager;
 import org.indyoracle.security.UserManager;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,8 +15,13 @@ import com.stormpath.sdk.directory.CustomData;
 @Component
 public class CronJobs {
 	
+	private DataManager dataManager;
+	
 	@Scheduled(fixedRate = 20000)
 	public void runMailProcess() {
+		dataManager = DataManager.getInstance();
+		dataManager.setUptime(System.currentTimeMillis() - dataManager.getStartTime());
+		
 		ArrayList<Mail> smsEmails = GmailManager.getSmsMessages();
 		
 		// Messages:
