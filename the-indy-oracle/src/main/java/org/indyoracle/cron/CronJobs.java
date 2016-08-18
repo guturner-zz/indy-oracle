@@ -33,7 +33,8 @@ public class CronJobs {
 				
 				for (Account a : accounts) {
 					CustomData data = a.getCustomData();
-					GmailManager.sendHelpRequestEmail(data.get("phoneNumber").toString(), data.get("phoneCarrier").toString(), phoneNumber, m.getText());
+					String emailText = m.getText().trim().replaceAll("\\r", "").replaceAll("\\n", "");
+					GmailManager.sendHelpRequestEmail(data.get("phoneNumber").toString(), data.get("phoneCarrier").toString(), phoneNumber, emailText);
 				}
 			}
 		}

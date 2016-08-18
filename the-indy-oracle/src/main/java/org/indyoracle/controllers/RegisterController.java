@@ -1,5 +1,7 @@
 package org.indyoracle.controllers;
 
+import static org.indyoracle.logging.LoggingHelper.log;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -118,6 +120,7 @@ public class RegisterController {
     	
     	if (a != null) {
     		redirectAttr.addFlashAttribute("newUser", true);
+    		log(a.getEmail() + " has successfully registered.");
     	} else {
     		redirectAttr.addFlashAttribute("newUserFailed", true);
     	}

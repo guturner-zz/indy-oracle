@@ -55,7 +55,7 @@ public class DataManager {
 	public String getFormattedUptime() {
 		long s = TimeUnit.MILLISECONDS.toSeconds(this.uptime) % 60;
 		long m = TimeUnit.MILLISECONDS.toMinutes(this.uptime) % 60;
-		long h = TimeUnit.MILLISECONDS.toHours(this.uptime) % 24;
-	    return String.format("%02d:%02d:%02d", h,m,s);
+		long h = TimeUnit.MILLISECONDS.toHours(this.uptime);
+	    return String.format("%03d:%02d:%02d", h,m,s);
 	}
 }

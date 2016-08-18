@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import static org.indyoracle.logging.LoggingHelper.log;
+
 import org.indyoracle.beans.Field;
 import org.indyoracle.beans.StormpathLoginBean;
 import org.indyoracle.security.AccountManager;
@@ -55,6 +57,7 @@ public class LoginController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String viewLogout(HttpServletRequest request, Model model) {
 		Account a = UserManager.getCurrentUser(request.getSession());
+		log(a.getEmail() + " is logging out.");
 		
 		if (a != null) {
 			request.getSession().removeAttribute("account");
@@ -104,6 +107,8 @@ public class LoginController {
     	
     	redirectAttr.addFlashAttribute("user", a);
     	session.setAttribute("account", a);
+    	
+    	log(a.getEmail() + " is logging in.");
     	
     	return "redirect:/?skip=y";
     }

@@ -1,8 +1,12 @@
 package org.indyoracle.gmail;
 
+import static org.indyoracle.logging.LoggingHelper.log;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -163,6 +167,8 @@ public class GmailManager {
 					break;
 			}
 			
+			Date now = new Date();
+			String nowString = new SimpleDateFormat("hh:mm:ss").format(now);
 			
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("the-indy-oracle@gmail.com"));
@@ -171,7 +177,8 @@ public class GmailManager {
 			message.setSubject("Someone Needs Help");
 			String msgBody = "Hero, we've received an SOS from " + numberWhoNeedsHelp + ". Here is their full message: " + msg + ". Please coordinate an escort.";
 			message.setText(msgBody);
-			dataManager.addMessage(msgBody);
+			dataManager.addMessage(nowString + " MSG: " + msgBody + ", TO: " + to);
+			log("MSG: " + msgBody + ", TO: " + to);
 
 			Transport.send(message);
 
